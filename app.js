@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
   res.render('pages/home', { document })
 })
 
-app.get('/about', (req, res) => {
+app.get('/about', async (req, res) => {
   res.render('pages/about')
 })
 

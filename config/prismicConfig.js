@@ -20,8 +20,10 @@ const routes = [
   },
 ]
 
-export const client = prismic.createClient(repoName, {
+const client = prismic.createClient(repoName, {
   fetch,
   accessToken,
   routes,
 })
+
+module.exports = { client }
