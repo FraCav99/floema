@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 
-const client = require('./config/prismicConfig').client
+const { client } = require('./config/prismicConfig')
 
 const prismicH = require('@prismicio/helpers')
 
@@ -21,17 +21,18 @@ app.use((req, res, next) => {
   res.locals.ctx = {
     prismicH,
   }
+
   next()
 })
 
-app.get('/', async (req, res) => {
-  // Here we are retrieving the first document from API endpoint
-  const document = await client.getFirst()
-  res.render('pages/home', { document })
+app.get('/', (req, res) => {
+  res.render('pages/home')
 })
 
 app.get('/about', async (req, res) => {
-  res.render('pages/about')
+  // TODO: recuperare metadata per template pug
+    const document = await client.getSingle('about')
+    res.render('pages/about', { document })
 })
 
 app.get('/collections', (req, res) => {

@@ -6,7 +6,7 @@ require('dotenv').config()
 const fetch = require('node-fetch')
 const prismic = require('@prismicio/client')
 
-const repoName = 'Floema'
+const repoName = process.env.PRISMIC_ENDPOINT
 const accessToken = process.env.PRISMIC_ACCESS_TOKEN
 
 // The `routes` property is your route resolver. It defines how you will
@@ -15,9 +15,9 @@ const accessToken = process.env.PRISMIC_ACCESS_TOKEN
 // project.
 const routes = [
   {
-    type: 'page',
-    path: '/:uid',
-  },
+    type: 'about',
+    path: '/about'
+  }
 ]
 
 const client = prismic.createClient(repoName, {
