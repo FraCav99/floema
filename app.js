@@ -31,7 +31,9 @@ app.get('/', (req, res) => {
 
 app.get('/about', async (req, res) => {
   // TODO: recuperare metadata per template pug
+  // TODO: risolvere problema slice_type 'galllery' (typo nel nome)
     const document = await client.getSingle('about')
+    console.log(document.data.body)
     res.render('pages/about', { document })
 })
 
