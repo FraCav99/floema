@@ -36,19 +36,29 @@ app.get('/about', async (req, res) => {
   // TODO: recuperare metadata per template pug
   // TODO: risolvere problema slice_type 'galllery' (typo nel nome)
     const document = await client.getSingle('about')
-    console.log(document.data.body)
     res.render('pages/about', { document })
 })
 
-app.get('/collections', (req, res) => {
-  res.render('pages/collections')
+app.get('/collections', async (req, res) => {
+  const home = await client.getSingle('home');
+
+  const collections = await client.getAllByType('collection',
+  {
+    fetchLinks: 'product.image'
+  });
+
+  res.render('pages/collections', { collections, home });
 })
 
 app.get('/detail/:uid', async (req, res) => {
-  const document = await client.getByUID('product', req.params.uid, {
-    fetchLinks: 'collection.title',
-  })
-  res.render('pages/detail', { document })
+  const document = await client.getByUID(
+      'product',
+    req.params.uid,
+    {
+      fetchLinks: 'collection.title',
+    }
+  );
+  res.render('pages/detail', { document });
 })
 
 app.listen(port, () => {
